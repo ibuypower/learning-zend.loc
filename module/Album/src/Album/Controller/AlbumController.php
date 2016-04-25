@@ -109,6 +109,31 @@ class AlbumController extends AbstractActionController
         );
     }
 
+    public function viewAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('album', array(
+                'action' => 'index'
+            ));
+        }
+
+        // Get the Album with the specified id.  An exception is thrown
+        // if it cannot be found, in which case go to the index page.
+        try {
+            $album = $this->getAlbumTable()->getAlbum($id);
+        }
+        catch (\Exception $ex) {
+            return $this->redirect()->toRoute('album', array(
+                'action' => 'index'
+            ));
+        }
+
+        return array(
+            'album' => $album,
+        );
+    }
+
     public function getAlbumTable()
     {
         if (!$this->albumTable) {
@@ -117,4 +142,5 @@ class AlbumController extends AbstractActionController
         }
         return $this->albumTable;
     }
+
 }
