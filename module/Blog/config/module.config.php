@@ -19,8 +19,9 @@ return array(
 
     'controllers' => array(
         'factories' => array(
-            'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory',
-            'Blog\Controller\Write'=> 'Blog\Factory\WriteControllerFactory'
+            'Blog\Controller\List'      => 'Blog\Factory\ListControllerFactory',
+            'Blog\Controller\Write'     => 'Blog\Factory\WriteControllerFactory',
+            'Blog\Controller\Delete'    => 'Blog\Factory\DeleteControllerFactory'
         )
     ),
 
@@ -38,10 +39,10 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes'  => array(
-                    'detail' => array(
+                    'view' => array(
                         'type' => 'segment',
                         'options' => array(
-                            'route'    => '/:id',
+                            'route'    => '/view/:id',
                             'defaults' => array(
                                 'action' => 'detail'
                             ),
@@ -67,6 +68,19 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Blog\Controller\Write',
                                 'action'     => 'edit'
+                            ),
+                            'constraints' => array(
+                                'id' => '\d+'
+                            )
+                        )
+                    ),
+                    'delete' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route'    => '/delete/:id',
+                            'defaults' => array(
+                                'controller' => 'Blog\Controller\Delete',
+                                'action'     => 'delete'
                             ),
                             'constraints' => array(
                                 'id' => '\d+'
