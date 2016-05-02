@@ -2,6 +2,8 @@
 
 namespace Blog\Service;
 
+use Blog\Model\Post;
+use Blog\Model\PostInterface;
 use Blog\Mapper\PostMapperInterface;
 
 class PostService implements PostServiceInterface
@@ -33,5 +35,13 @@ class PostService implements PostServiceInterface
     public function findALlPosts()
     {
         return $this->postMapper->findAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function savePost(PostInterface $post)
+    {
+        return $this->postMapper->save($post);
     }
 }
